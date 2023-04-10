@@ -1,12 +1,12 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-            }
-        }
+stage('Checkout') {
+    steps {
+        git 'git@github.com:Sedkibani/nxtya.git'
+    }
+}
+
 
         stage('Build') {
             steps {
