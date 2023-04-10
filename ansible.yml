@@ -1,0 +1,103 @@
+- name: Deploy Laravel Application
+  hosts: your_server_hostname
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Install Docker Compose
+      pip:
+        name: docker-compose
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Clone Laravel repository
+      git:
+        repo: https://github.com/your_username/your_repository.git
+        dest: /path/to/your_repository
+        version: HEAD
+      register: git_result
+
+    - name: Build Docker image
+      docker_image:
+        name: nxtya:1.0
+        path: /path/to/your_repository
+        state: build
+      when: "'Dockerfile' in git_result.stdout_lines"
+
+    - name: Start Laravel container
+      docker_container:
+        name: laravel
+        image: nxtya:1.0
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "80:80"
+        volumes:
+          - "/path/to/your_repository:/var/www/html"
+        env:
+          APP_ENV: "production"
+          APP_KEY: "your_app_key"
+          DB_HOST: "your_db_host"
+          DB_DATABASE: "your_db_database"
+          DB_USERNAME: "your_db_username"
+          DB_PASSWORD: "your_db_password"
+      when: "'docker-compose.yml' not in git_result.stdout_lines"
+
+    - name: Run PHPUnit tests
+      docker_container:
+        name: laravel
+        image: nxtya:1.0
+        state: started
+        command: "vendor/bin/phpunit"
+        volumes:
+          - "/path/to/your_repository:/var/www/html"
+        env:
+          APP_ENV: "testing"
+          APP_KEY: "your_app_key"
+          DB_HOST: "your_db_host"
+          DB_DATABASE: "your_db_database"
+          DB_USERNAME: "your_db_username"
+          DB_PASSWORD: "your_db_password"
+      when: "'docker-compose.yml' not in git_result.stdout_lines"
+
+    - name: Stop Laravel container
+      docker_container:
+        name: laravel
+        image: nxtya:1.0
+        state: stopped
+      when: "'docker-compose.yml' not in git_result.stdout_lines"
+
+    - name: Run SonarQube analysis
+      shell:
+        cmd: "sonar-scanner"
+      when: "'sonar-project.properties' in git_result.stdout_lines"
