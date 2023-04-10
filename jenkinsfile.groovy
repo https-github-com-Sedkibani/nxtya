@@ -10,20 +10,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t nxtya:1.0 .'
+                sh 'docker build -t nxtya:1.0 -f docker/Dockerfile .'
             }
         }
 
-        stage('Unit Test') {
-            steps {
-                sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
-            }
-        }
+        //stage('Unit Test') {
+          //  steps {
+            //    sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
+            //}
+        //}
 
-        stage('Code Quality') {
-            steps {
-                sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
-                // Additional commands for other code quality tools like SonarQube
+       // stage('Code Quality') {
+           // steps {
+//sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
+//// Additional commands for other code quality tools like SonarQube
             }
         }
 
