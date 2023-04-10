@@ -24,8 +24,8 @@ pipeline {
            // steps {
 //sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
 //// Additional commands for other code quality tools like SonarQube
-            }
-        }
+          //  }
+      //  }
 
         stage('Deploy') {
             steps {
