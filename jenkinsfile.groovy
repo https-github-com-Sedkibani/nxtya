@@ -47,7 +47,7 @@ stage('Checkout') {
         always {
             // Set up email notifications
             emailext (
-                to: 'sedki99bani@gmal.com',
+                to: 'sedki99bani@gmail.com',
                 subject: 'Pipeline Status - ${currentBuild.result}',
                 body: """<p>Pipeline Status: ${currentBuild.result}</p>
                          <p>Build URL: ${env.BUILD_URL}</p>""",
