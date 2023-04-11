@@ -11,11 +11,13 @@ pipeline {
             }
         }
         
-        stage('Docker Login') {
+      stage('Docker Login') {
             steps {
-                // Authenticate with Docker Hub using provided credentials
-                withCredentials([usernamePassword(credentialsId: 'Sedkibani', usernameVariable: 'banisedki', passwordVariable: 'heisenberg.1889')]) {
-                    sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD}"
+                // Login to Docker Hub with username and password
+                withCredentials([
+                    usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+                ]) {
+                    sh 'docker login -u banisedki -p heisenberg.1889'
                 }
             }
         }
