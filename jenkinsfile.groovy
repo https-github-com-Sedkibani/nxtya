@@ -3,7 +3,7 @@ pipeline {
 
 stage('Checkout') {
     steps {
-        //git 'https://github.com/https-github-com-Sedkibani/nxtya.git'
+        git 'https://github.com/https-github-com-Sedkibani/nxtya.git'
         git credentialsId: 'Sedkibani', url: 'https://github.com/https-github-com-Sedkibani/nxtya.git'
     }
 }
