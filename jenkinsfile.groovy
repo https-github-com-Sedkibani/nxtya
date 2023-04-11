@@ -4,9 +4,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-                git branch: 'main', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-                git credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+                 git branch: 'main', credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+                //git 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+               // git branch: 'main', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+               // git credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
             }
         }
 
