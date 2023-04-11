@@ -11,7 +11,15 @@ pipeline {
             }
         }
         
-      stage('Docker Login') {
+   
+
+        stage('Build') {
+            steps {
+                sh  'docker build -t nxtya:1.0 -f docker/Dockerfile .'
+            }
+        }
+        
+           stage('Docker Login') {
             steps {
                 // Login to Docker Hub with username and password
                 withCredentials([
@@ -21,12 +29,7 @@ pipeline {
                 }
             }
         }
-
-        stage('Build') {
-            steps {
-                sh  'docker build -t nxtya:1.0 -f docker/Dockerfile .'
-            }
-        }
+        
         stage('Push to Docker Hub') {
             steps {
                 sh 'docker push nxtya:1.0'
