@@ -1,13 +1,13 @@
 pipeline {
     agent any
 
-stage('Checkout') {
-    steps {
-        git 'https://github.com/https-github-com-Sedkibani/nxtya.git'
-        git credentialsId: 'Sedkibani', url: 'https://github.com/https-github-com-Sedkibani/nxtya.git'
-    }
-}
-
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/https-github-com-Sedkibani/nxtya.git'
+                git credentialsId: 'Sedkibani', url: 'https://github.com/https-github-com-Sedkibani/nxtya.git'
+            }
+        }
 
         stage('Build') {
             steps {
@@ -15,18 +15,18 @@ stage('Checkout') {
             }
         }
 
-        //stage('Unit Test') {
-          //  steps {
-            //    sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
-            //}
-        //}
+        /*stage('Unit Test') {
+            steps {
+                sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
+            }
+        }*/
 
-       // stage('Code Quality') {
-           // steps {
-//sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
-//// Additional commands for other code quality tools like SonarQube
-          //  }
-      //  }
+        /*stage('Code Quality') {
+            steps {
+                sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
+                // Additional commands for other code quality tools like SonarQube
+            }
+        }*/
 
         stage('Deploy') {
             steps {
@@ -40,7 +40,6 @@ stage('Checkout') {
         }
 
         // Additional stages for monitoring and security checks
-
     }
 
     post {
