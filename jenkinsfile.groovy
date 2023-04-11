@@ -32,7 +32,7 @@ pipeline {
         
         stage('Push to Docker Hub') {
             steps {
-                sh 'docker push banisedki/nxtya:tagname  nxtya'
+                sh 'docker push banisedki/nxtya'
             }
         }
 
