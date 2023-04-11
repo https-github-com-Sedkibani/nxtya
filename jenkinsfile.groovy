@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // Login to Docker Hub with username and password
                 withCredentials([
-                    usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+                    usernamePassword(credentialsId: 'Sedkibani', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
                 ]) {
                     sh 'docker login -u banisedki -p heisenberg.1889'
                 }
