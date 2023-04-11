@@ -4,6 +4,7 @@ pipeline {
 stage('Checkout') {
     steps {
         git 'https://github.com/https-github-com-Sedkibani/nxtya.git'
+        git credentialsId: 'git-credentials', url: 'https://github.com/https-github-com-Sedkibani/nxtya.git'
     }
 }
 
