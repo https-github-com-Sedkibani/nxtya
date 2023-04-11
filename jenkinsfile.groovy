@@ -10,10 +10,24 @@ pipeline {
                // git credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
             }
         }
+        
+        stage('Docker Login') {
+            steps {
+                // Authenticate with Docker Hub using provided credentials
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD}"
+                }
+            }
+        }
 
         stage('Build') {
             steps {
                 sh  'docker build -t nxtya:1.0 -f docker/Dockerfile .'
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                sh 'docker push nxtya:1.0'
             }
         }
 
