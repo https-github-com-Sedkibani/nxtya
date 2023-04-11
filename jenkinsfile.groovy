@@ -13,7 +13,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t nxtya:1.0 -f docker/Dockerfile .'
+                sudo sh 'docker build -t nxtya:1.0 -f docker/Dockerfile .'
             }
         }
 
