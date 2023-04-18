@@ -16,6 +16,11 @@ RUN apt-get update && apt-get install -y \
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip soap
 
+# Install PHPUnit
+RUN curl -sSLo /tmp/phpunit.phar https://phar.phpunit.de/phpunit.phar \
+    && chmod +x /tmp/phpunit.phar \
+    && mv /tmp/phpunit.phar /usr/local/bin/phpunit
+
 # Set working directory
 WORKDIR /home/sedki/Documents/nxtya/
 
