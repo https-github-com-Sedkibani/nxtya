@@ -53,8 +53,8 @@ pipeline {
             steps {
                 // Use Ansible playbook to deploy to DigitalOcean server
                 ansiblePlaybook(
-                    playbook: 'ansible.yml',
-                    inventory: 'inventory.ini',
+                    playbook: '/var/lib/jenkins/workspace/nxtya/ansible.yml',
+                    inventory: '/var/lib/jenkins/workspace/nxtya/inventory.ini',
                     extras: "-e 'docker_image=nxtya:1.0'"
                 )
             }
