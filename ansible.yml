@@ -42,7 +42,7 @@
 
     - name: Clone Laravel repository
       git:
-        repo: https://github.com/your_username/your_repository.git
+        repo: git@github.com:https-github-com-Sedkibani/nxtya.git
         dest: /path/to/your_repository
         version: HEAD
       register: git_result
@@ -50,7 +50,7 @@
     - name: Build Docker image
       docker_image:
         name: nxtya:1.0
-        path: /path/to/your_repository
+        path: /home/sedki/Documents/nxtya/
         state: build
       when: "'Dockerfile' in git_result.stdout_lines"
 
@@ -97,7 +97,3 @@
         state: stopped
       when: "'docker-compose.yml' not in git_result.stdout_lines"
 
-    - name: Run SonarQube analysis
-      shell:
-        cmd: "sonar-scanner"
-      when: "'sonar-project.properties' in git_result.stdout_lines"
