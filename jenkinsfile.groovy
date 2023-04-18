@@ -36,11 +36,11 @@ pipeline {
             }
         }
 
-        /*stage('Unit Test') {
+        stage('Unit Test') {
             steps {
                 sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
             }
-        }*/
+        }
 
         /*stage('Code Quality') {
             steps {
