@@ -1,5 +1,5 @@
 - name: Deploy Laravel Application
-  hosts: 127.0.0.1
+  hosts: root
   become: yes
   tasks:
     - name: Update apt cache
