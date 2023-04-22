@@ -58,10 +58,10 @@ pipeline {
                     extras: "-e 'docker_image=nxtya:1.0'"
                 )
             }
-        }
+        
 
         // Additional stages for monitoring and security checks
-    }
+    
 
     post {
         always {
