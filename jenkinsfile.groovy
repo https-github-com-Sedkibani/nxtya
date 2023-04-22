@@ -1,55 +1,53 @@
-pipeline {
-    agent any
+agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                 git branch: 'main', credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-                //git 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-               // git branch: 'main', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-               // git credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+stages {
+    stage('Checkout') {
+        steps {
+             git branch: 'main', credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+            //git 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+           // git branch: 'main', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+           // git credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+        }
+    }
+    
+
+    stage('Build') {
+        steps {
+            sh  'docker build -t nxtya:1.0 -f docker/Dockerfile .'
+        }
+    }
+    
+       stage('Docker Login') {
+        steps {
+            // Login to Docker Hub with username and password
+            withCredentials([
+                usernamePassword(credentialsId: 'Sedkibani', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+            ]) {
+                sh 'docker login -u banisedki -p heisenberg.1889'
             }
         }
-        
-   
-
-        stage('Build') {
-            steps {
-                sh  'docker build -t nxtya:1.0 -f docker/Dockerfile .'
-            }
+    }
+    
+    stage('Push to Docker Hub') {
+        steps {
+            sh 'docker push banisedki/nxtya'
         }
-        
-           stage('Docker Login') {
-            steps {
-                // Login to Docker Hub with username and password
-                withCredentials([
-                    usernamePassword(credentialsId: 'Sedkibani', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
-                ]) {
-                    sh 'docker login -u banisedki -p heisenberg.1889'
-                }
-            }
+    }
+
+    /* stage('Unit Test') {
+        steps {
+            sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
         }
-        
-        stage('Push to Docker Hub') {
-            steps {
-                sh 'docker push banisedki/nxtya'
-            }
+    }*/
+
+    /*stage('Code Quality') {
+        steps {
+            sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
+            // Additional commands for other code quality tools like SonarQube
         }
+    }*/
 
-        /* stage('Unit Test') {
-            steps {
-                sh 'docker run --rm nxtya:1.0 vendor/bin/phpunit'
-            }
-        }*/
-
-        /*stage('Code Quality') {
-            steps {
-                sh 'docker run --rm nxtya:1.0 vendor/bin/phpstan analyze'
-                // Additional commands for other code quality tools like SonarQube
-            }
-        }*/
-
-   stage('Deploy') {
+    stage('Deploy') {
         steps {
             // Use Ansible playbook to deploy to DigitalOcean server
             ansiblePlaybook(
@@ -77,3 +75,4 @@ post {
         )
     }
 }
+
