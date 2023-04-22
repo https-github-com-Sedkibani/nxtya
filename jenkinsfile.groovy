@@ -49,32 +49,31 @@ pipeline {
             }
         }*/
 
-        stage('Deploy') {
-            steps {
-                // Use Ansible playbook to deploy to DigitalOcean server
-                ansiblePlaybook(
-                    playbook: '/var/lib/jenkins/workspace/nxtya/ansible.yml',
-                    inventory: '/var/lib/jenkins/workspace/nxtya/inventory.ini',
-                    extras: "-e 'docker_image=nxtya:1.0'"
-                )
-            }
-        
-
-        // Additional stages for monitoring and security checks
-    
-
-    post {
-        always {
-            // Set up email notifications
-            emailext (
-                to: 'sedki99bani@gmail.com',
-                subject: 'Pipeline Status - ${currentBuild.result}',
-                body: """<p>Pipeline Status: ${currentBuild.result}</p>
-                         <p>Build URL: ${env.BUILD_URL}</p>""",
-                recipientProviders: [[$class: 'RequesterRecipientProvider']],
-                replyTo: 'jenkins@yourdomain.com',
-                mimeType: 'text/html'
+   stage('Deploy') {
+        steps {
+            // Use Ansible playbook to deploy to DigitalOcean server
+            ansiblePlaybook(
+                playbook: '/var/lib/jenkins/workspace/nxtya/ansible.yml',
+                inventory: '/var/lib/jenkins/workspace/nxtya/inventory.ini',
+                extras: "-e 'docker_image=nxtya:1.0'"
             )
         }
+    }
+}
+
+// Additional stages for monitoring and security checks
+
+post {
+    always {
+        // Set up email notifications
+        emailext (
+            to: 'sedki99bani@gmail.com',
+            subject: 'Pipeline Status - ${currentBuild.result}',
+            body: """<p>Pipeline Status: ${currentBuild.result}</p>
+                     <p>Build URL: ${env.BUILD_URL}</p>""",
+            recipientProviders: [[$class: 'RequesterRecipientProvider']],
+            replyTo: 'jenkins@yourdomain.com',
+            mimeType: 'text/html'
+        )
     }
 }
