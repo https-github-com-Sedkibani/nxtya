@@ -2,14 +2,9 @@ agent any
 
 stages {
     stage('Checkout') {
-        steps {
-            git url: 'https://github.com/Sedkibani/nxtya.git', branch: 'main', credentialsId: 'Sedkibani'
-
-             //git branch: 'main', credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-            //git 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-           // git branch: 'main', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-           // git credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
-        }
+        steps {  
+            git branch: 'main', credentialsId: 'Sedkibani', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+            }
     }
     
 
