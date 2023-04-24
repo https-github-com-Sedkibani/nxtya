@@ -2,7 +2,7 @@
   hosts: all
   remote_user: root
   become_method: sudo
-    vars_files: /var/lib/jenkins/workspace/nxtya/ansible.yml
+    vars_files: ansible.yml
   become: yes
   tasks:
     - name: Update apt cache
