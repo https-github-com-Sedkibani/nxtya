@@ -1,5 +1,8 @@
 - name: Deploy Laravel Application
-  hosts: local
+  hosts: all
+  remote_user: root
+  become: yes
+  become_method: sudo
   become: yes
   tasks:
     - name: Update apt cache
