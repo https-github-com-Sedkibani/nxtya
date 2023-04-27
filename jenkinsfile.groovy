@@ -1,4 +1,4 @@
-agent localhost
+agent root
 
 stages {
     stage('Checkout') {
