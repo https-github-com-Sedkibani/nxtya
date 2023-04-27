@@ -3,7 +3,7 @@ agent any
 stages {
     stage('Checkout') {
         steps {  
-            git branch: 'main', credentialsId: 'jenkins', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
+            git branch: 'main', credentialsId: 'jenkinss', url: 'git@github.com:https-github-com-Sedkibani/nxtya.git'
             }
     }
     
@@ -18,7 +18,7 @@ stages {
         steps {
             // Login to Docker Hub with username and password
             withCredentials([
-                usernamePassword(credentialsId: 'jenkins', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+                usernamePassword(credentialsId: 'jenkinss', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
             ]) {
                 sh 'docker login -u banisedki -p heisenberg.1889'
             }
