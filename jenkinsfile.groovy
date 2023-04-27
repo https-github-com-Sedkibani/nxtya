@@ -1,4 +1,4 @@
-agent root
+agent any
 
 stages {
     stage('Checkout') {
