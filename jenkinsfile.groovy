@@ -18,16 +18,17 @@ pipeline {
             steps {
                 // Login to Docker Hub with username and password
                 withCredentials([
-                    usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+                    usernamePassword(credentialsId: 'banisedki', url: 'https://hub.docker.com/repository/docker/banisedki/nxtya')
+                                     /* usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')*/
                 ]) {
-                    sh 'docker login -u banisedki -p heisenberg.1889'
+                    sh 'docker login -u  'DOCKER_USERNAME' -p 'DOCKER_PASSWORD' '
                 }
             }
         }
         
         stage('Push to Docker Hub') {
             steps {
-                sh 'docker push banisedki/nxtya'
+                sh 'docker push banisedki/nxtya:latest'
             }
         }
 
