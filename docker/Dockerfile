@@ -29,9 +29,9 @@ COPY . /home/sedki/Documents/nxtya
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
+RUN composer install  
 # Install dependencies using Composer
-COPY --from=composer:1.10.1 . /home/sedki/Documents/nxtya/docker/docker-composer.yml
-COPY composer.json composer.lock /home/sedki/Documents/nxtya/
+#COPY --from=composer:1.10.1 . /home/sedki/Documents/nxtya/docker/docker-composer.yml
+#COPY composer.json composer.lock /home/sedki/Documents/nxtya/
 EXPOSE 9000
 CMD ["php-fpm"]
