@@ -23,7 +23,7 @@ RUN curl -sSLo /tmp/phpunit.phar https://phar.phpunit.de/phpunit.phar \
 
 # Set working directory
 WORKDIR /home/sedki/Documents/nxtya/
-
+#/var/www/html
 # Copy existing application directory contents
 COPY . /home/sedki/Documents/nxtya
 
